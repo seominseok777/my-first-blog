@@ -1,0 +1,53 @@
+{% extends "Django/layout.html" %}
+{% block content %}
+<form action="" method="post">
+  <legend>Post Form</legend>
+  {% csrf_token %}
+  {% for error in form.non_field_errors %}
+  <div class="alert alert-danger">
+    {{ error }}
+  </div>
+  {% endfor %}
+  {{ form.user_agent }}
+  <table>
+    <tr>
+      <td>{{ form.title.label_tag }}</td>
+      <td>
+        {{ form.title }}
+        {% for error in form.title.errors %}
+        <div class="alert alert-danger">
+          {{ erorr }}
+        </div>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>{{ form.author.label_tag }}</td>
+      <td>
+        {{ form.author }}
+        {% for error in form.content.errors %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+        {% endfor %}
+      </td>
+    </tr>
+    <tr>
+      <td>{{ form.content.label_tag }}</td>
+      <td>
+        {{ form.content }}
+        {% for error in form.content.errors %}
+        <div class="alert alert-danger">
+          {{ error }}
+        </div>
+        {% endfor %}
+      </td>
+    </tr>
+  </table>
+  <button class="btn btn-secondary my-2 my-sm-0" type="submit">SAVE</button>
+</form>
+<script>
+  var dom = document.getElementById('{{ form.user_agent.id_for_label }}');
+  dom.value = navigator.userAgent;
+</script>
+{% endblock %}

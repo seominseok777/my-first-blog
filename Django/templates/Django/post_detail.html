@@ -1,0 +1,15 @@
+{% extends "Django/layout.html" %}
+{% block content %}
+<div class="jumbotron">
+    <h3 class="display-4">{{post.title}}....<small>{{post.author}}</small></h3>
+  <hr/>
+  <p>{{post.content|linebreaks}}</p>
+</div>
+<hr/>
+<h3>Comment</h3>
+<hr/>
+<div>
+  {% load disqus_tags %}
+  {% disqus_show_comments %}
+</div>
+{% endblock %}

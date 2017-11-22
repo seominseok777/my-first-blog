@@ -1,0 +1,60 @@
+{% extends "Django/layout.html" %}
+{% block content %}
+<table class="table table-striped table-hover table-bordered">
+  <thead class="thead-dark">
+    <tr>
+      <th>post number</th>
+      <th>title</th>
+      <th>author</th>
+      <th>created time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for contact in contacts %}
+    <tr>
+      <td>{{contact.id}}</td>
+      <td><a href="/Django/{{contact.id}}/">{{contact.title}}</a></td>
+      <td>{{contact.author}}</td>
+      <td>{{contact.updated_at}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% if contacts.has_other_pages %}
+<ul class="pagination">
+  {% if contacts.has_previous %}
+  <li class="page-iteme">
+    <a class="page-link" href="?page={{ contacts.previous_page_number }}">&laquo;</a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+    <span>&laquo;</span>
+  </li>
+  {% endif %}
+  {% for page in page_range %}
+  {% if contacts.number == page %}
+  <li class="page-item active">
+    <span class="page-link">{{ page }}</span>
+  </li>
+  {% else %}
+  <li class="page-item">
+    <a class="page-link" href="?page={{ page }}">{{ page }}</a>
+  </li>
+  {% endif %}
+  {% endfor %}
+  {% if contacts.has_next %}
+  <li class="page-iteme">
+    <a class="page-link" href="?page={{ contacts.next_page_number }}">&raquo;</a>
+  </li>
+  {% else %}
+  <li class="page-item disabled">
+    <span>&raquo;</span>
+  </li>
+  {% endif %}
+  <div class="wrap">
+    <a href="{% url "Django:post_writing" %}" class="btn btn-primary">write</a>
+  </div>
+</ul>
+<p> {{user}} </p>
+{% endif %}
+{% endblock %}
